@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  <meta name="google-signin-client_id" content="507142775396-u9i00vhapghfarhqg2lhcnm1pcoh2air.apps.googleusercontent.com">
+<!-- Add this inside <head> -->
+<script>
+  window.fbAsyncInit = function () {
+    FB.init({
+      appId: 'YOUR_FACEBOOK_APP_ID', // Replace this with your real App ID
+      cookie: true,
+      xfbml: true,
+      version: 'v18.0' // Use the latest Facebook Graph API version
+    });
+  };
+
+  (function (d, s, id) {
+    var js,
+      fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  })(document, 'script', 'facebook-jssdk');
+</script>
+
   <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.

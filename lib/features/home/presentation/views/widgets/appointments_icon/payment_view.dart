@@ -276,29 +276,34 @@ left: 36
 
   ),
   child: Center(
-    child: Container(
-      height: 50,
-      width: 181,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8)
-      ),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(),
-          backgroundColor: kPrimaryColor,
-          
+    child: Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        height: 50,
+        width: 181,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8)
         ),
-        onPressed: 
-      (){
-         Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Appointment_confirmation_View()),
-      );
-      }, child: Text('Proceed to pay',style: GoogleFonts.inter(
-        color: Colors.white,
-        fontSize: 14,
-        fontWeight: FontWeight.w700
-      ),)),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12)
+            ),
+            backgroundColor: kPrimaryColor,
+            
+          ),
+          onPressed: 
+        (){
+           Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => AppointmentConfirmationView ()),
+        );
+        }, child: Text('Proceed to pay',style: GoogleFonts.inter(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.w700
+        ),)),
+      ),
     ),
   ),
 )

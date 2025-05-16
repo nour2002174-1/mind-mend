@@ -22,6 +22,25 @@ class AssetsData {
    static const appointments_icon_man_picture='assets/images/image copy 20.png';
    static const Confirmed_icon='assets/images/image copy 21.png';
    static const calender_icon='assets/images/image copy 22.png';
-
+   static const loading_icon='assets/images/image copy 24.png';
+   static const pen_icon='assets/images/image copy 25.png';
+   static const clock_icon='assets/images/image copy 26.png';
+   static const feelings_picture='assets/images/image copy 27.png';
+   static const pen_icon2='assets/images/image copy 28.png';
+   static const confirmation_icon='assets/images/image copy 29.png';
+   static const add_note_image='assets/images/image copy 30.png';
+   static const three_dots_icon='assets/images/image copy 31.png';
+   static const add_icon='assets/images/image copy 32.png';
+   static const gen_z_image='assets/images/image copy 33.png';
+   static const notifications_icon='assets/images/image copy 37.png';
+   static const firstphotostepsproblem ='assets/images/image copy 38.png';
+   static const secondphotostepsproblem='assets/images/image copy 39.png';
+   static const blue_container='assets/images/image copy 40.png';
+   static const back_arrow='assets/images/image copy 41.png';
+   static const calling_icon='assets/images/image copy 42.png';
+   static const volume_up_icon='assets/images/image copy 43.png';
+   static const video_call_icon='assets/images/image copy 44.png';
+   static const mic_icon='assets/images/image copy 45.png';
+   static const others_icon='assets/images/image copy 46.png';
   //AssetsData(String splach_screen_image);
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_try/core/utils/assets.dart';
 import 'package:first_try/core/utils/elevatedbuttons.dart';
 import 'package:first_try/core/utils/textfields.dart';
@@ -11,10 +12,69 @@ class PhoneNumberPageBody extends StatefulWidget {
 
 class _PhoneNumberPageBodyState extends State<PhoneNumberPageBody> {
   final TextEditingController phoneController = TextEditingController();
+  String? verificationId;
+
+  // Function to send OTP
+  Future<void> sendOtp() async {
+    String phoneNumber = phoneController.text.trim();
+
+    if (phoneNumber.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please enter a valid phone number')),
+      );
+      return;
+    }
+
+    // Ensure phone number starts with the Egyptian country code
+    if (!phoneNumber.startsWith('+20')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Phone number must start with +20 for Egypt')),
+      );
+      return;
+    }
+
+    // Send OTP using Firebase Authentication
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        // Auto-verification completed
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Phone number verified automatically')),
+        );
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        // Handle verification failure
+        print('Verification failed: ${e.message}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Verification failed. Please try again')),
+        );
+       
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        // Store the verification ID and navigate to the OTP view
+        setState(() {
+          this.verificationId = verificationId;
+        });
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OtpView(verificationId: verificationId),
+          ),
+        );
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        // Handle timeout
+        setState(() {
+          this.verificationId = verificationId;
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView( // 👈 Wrap to avoid overflow on small screens
+    return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -72,16 +132,7 @@ class _PhoneNumberPageBodyState extends State<PhoneNumberPageBody> {
               child: Elevatedbuttons.blue_elevatedbutton(
                 text: 'Get OTP',
                 onPressed: () {
-                  if (phoneController.text.isNotEmpty) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => OtpView()),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Please enter your phone number')),
-                    );
-                  }
+                  sendOtp();
                 },
               ),
             ),
